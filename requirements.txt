@@ -1,0 +1,21 @@
+python-dotenv
+
+# LLM
+farm-haystack[inference]
+
+# Webscraper
+selenium
+beautifulsoup4
+webdriver_manager
+html2markdown
+
+# Search
+google-api-python-client
+
+
+# For Zypher
+bitsandbytes 
+accelerate 
+xformers 
+einops
+#git+https://github.com/huggingface/transformers
