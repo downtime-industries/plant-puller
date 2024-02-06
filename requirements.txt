@@ -7,7 +7,7 @@ farm-haystack[inference]
 selenium
 beautifulsoup4
 webdriver_manager
-html2markdown
+markdownify
 
 # Search
 google-api-python-client

@@ -7,19 +7,17 @@ from bs4 import BeautifulSoup
 import requests
 import time
 
-import html2markdown
+from markdownify import MarkdownConverter
 
 def scrape_webpage(url):
     # Try with requests first (for HTML content)
+    page_source=""
     try:
         response = requests.get(url, timeout=10)
         if response.status_code == 200:
-            return response.content.text
-            #soup = BeautifulSoup(response.content, 'html.parser')
-            
-            #body_content = soup.body  # Extract content from <body> tag
-            #if body_content:
-            #    return body_content.prettify()
+            # Set the page source for cleaning
+            return clean_page(response.content)
+
     except Exception as e:
         print(f"Requests failed: {e}")
 
@@ -39,24 +37,31 @@ def scrape_webpage(url):
         # Extract page source and close the browser
         page_source = driver.page_source
         driver.quit()
-        
-        # Use BeautifulSoup to parse and target the <body> content
-        #soup = BeautifulSoup(page_source, 'html.parser')
-        return page_source
-        #body_content = soup.body  # Extract content from <body> tag
-        #if body_content:
-        #    return body_content.prettify()
+        return clean_page(page_source)
+
     except Exception as e:
         print(f"Selenium failed: {e}")
         return None
+
+
+def clean_page(page_source):
+    soup = BeautifulSoup(page_source, 'html.parser')
+    soup = soup.find('body')
+
+    for item in soup.find_all('style'):
+        item.decompose()
+    
+    for item in soup.find_all('script'):
+        item.decompose()
+
+    return MarkdownConverter().convert_soup(soup)
 
 
 if __name__=="__main__":
   # Example Usage
   url = "https://www.goodhousekeeping.com/home/gardening/g40742429/best-indoor-plants-for-health/"
   content = scrape_webpage(url)
-  print(content)
   with open("tmp.txt", "+w") as f:
     f.write(content)
-  with open("tmp2.txt", "+w") as f:
-    f.write(html2markdown.convert(content))
+  #with open("tmp2.txt", "+w") as f:
+  #  f.write(html2markdown.convert(content))
