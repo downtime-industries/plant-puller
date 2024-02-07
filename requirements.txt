@@ -1,4 +1,5 @@
 python-dotenv
+opensearch-py
 
 # LLM
 farm-haystack[inference]
@@ -11,7 +12,6 @@ markdownify
 
 # Search
 google-api-python-client
-
 
 # For Zypher
 bitsandbytes 
