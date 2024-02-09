@@ -1,14 +1,19 @@
+from os import getenv
 from opensearchpy import OpenSearch
-host = 'localhost'
-port = 9200
+from dotenv import load_dotenv
+
+load_dotenv()
+host = getenv('HOST', "localhost")
+port = getenv('PORT', 9200)
 auth = ('admin', 'admin') # For testing only. Don't store credentials in code.
 
-def create_docstore(hosts):
+def create_docstore():
     return OpenSearch(
         hosts = [{'host': host, 'port': port}],
         http_auth = auth,
         use_ssl = True,
-        verify_certs = False
+        verify_certs = False,
+        ssl_show_warn=False
     )
 
 if __name__=="__main__":
