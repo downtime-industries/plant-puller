@@ -11,6 +11,7 @@ class PlantFinder(Job):
         self.plant_finder_prompt = "I NEED PLANTS"
 
 
+
 def FindSitesWithPlants(Task):
     """Finds sites that list common houseplants.
 
@@ -24,6 +25,42 @@ def FindSitesWithPlants(Task):
     """
     
     def __init__(self):
+        pass
+
+    def run(self):
+        # prompt LLM 
+        # return and clean results
+        # google search for results
+        # store results/urls in index
+        pass
+
+class ScrapePlantSite(Task):
+    """Downloads pages identified in the previous step
+
+    """
+    def __init__(self):
+        pass
+
+    def run(self):
+        # read from URL queue
+        # fetch page
+        # clean page
+        # store pages
+        pass
+
+
+class ExtractPlantList(Task):
+    """Extract plant names from page
+
+    """
+    def __init__(self):
+        pass
+
+    def run(self):
+        # read from URL queue
+        # fetch page
+        # clean page
+        # store pages
         pass
 
 if __name__=="__main__":
