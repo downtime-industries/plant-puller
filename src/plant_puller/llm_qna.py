@@ -20,6 +20,7 @@ model = AutoModelForCausalLM.from_pretrained(
     quantization_config=quantization_config,
     device_map="cuda",
 ).eval()
+
 generation_config = {
     "max_new_tokens": 256,
     "do_sample": True,
